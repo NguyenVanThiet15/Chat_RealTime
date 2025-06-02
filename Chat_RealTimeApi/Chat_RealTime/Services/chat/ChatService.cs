@@ -1,4 +1,5 @@
-﻿using Chat_RealTime.Controllers.chat.Dtos;
+﻿using System.Text.RegularExpressions;
+using Chat_RealTime.Controllers.chat.Dtos;
 using Chat_RealTime.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using MongoDB.Driver;
@@ -28,42 +29,62 @@ namespace Chat_RealTime.Services.chat
         //}
         public async Task<Chat> CreateChatRoom(CreateChatRoom input)
         {
-            var roomChat = new Chat
+            var listChatroom = await _chats.Find(x => x.Name.Trim().ToLower().Equals(input.NameRoom.Trim().ToLower())).FirstOrDefaultAsync();
+            if (listChatroom != null)
             {
-                Name = input.Name,
-                Participants = input.Participants,
-                Type = input.ChatType,
-            };
-            await _chats.InsertOneAsync(roomChat);
-            return roomChat;
+                return listChatroom;
+            }
+            else
+            {
+                var roomChat = new Chat
+                {
+                    Name = input.NameRoom,
+                    Participants = input.NguoiThamGia,
+                    Type = ChatType.Group,
+                };
+                await _chats.InsertOneAsync(roomChat);
+                return roomChat;
+            }
+          
         }
         public async Task<List<Chat>> GetUserChatsAsync(string userId)
         {
-            return await _chats.Find(c => c.Participants.Contains(userId)).ToListAsync();
+            return await _chats.Find(c => c.Participants.Contains(userId)&& c.Type == ChatType.Group  ).ToListAsync();
         }
         public async Task<Chat> CreateOrGetChat(CreateOrGetChatInput input)
-        {
+         {
             var existringChat = await _chats.Find(c => c.Type == ChatType.Private &&
-            c.Participants.Contains(input.CurrentUserId) &&
-            c.Participants.Contains(input.TargetUserId)).FirstOrDefaultAsync();
+            c.Participants.Contains(input.NguoiGuiID) &&
+            c.Participants.Contains(input.NguoiNhanId)).FirstOrDefaultAsync();
 
             if (existringChat != null)
             {
-                return existringChat;
+                var newChatRoom = new Chat
+                {
+                    Name = input.NameRoom,
+                    Type = ChatType.Group,
+                    Participants = input.participant,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                };
+                 await _chats.InsertOneAsync(newChatRoom);
+                return newChatRoom;
+            }
+            else
+            {
+                var newChat = new Chat
+                {
+                    Name = "",
+                    Type = ChatType.Private,
+                    Participants = new List<string> { input.NguoiGuiID, input.NguoiNhanId },
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                };
+                await _chats.InsertOneAsync(newChat);
+
+                return newChat;
             }
 
-            var newChat = new Chat
-            {
-                Name = "",
-                Type = ChatType.Private,
-                Participants = new List<string> { input.CurrentUserId, input.TargetUserId },
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-            };
-            await _chats.InsertOneAsync(newChat);
-
-            return newChat;
-            
         }
         //public async Task<Message> SendMessage (SendMessageInput input)
         //{

@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createOrGetChat, getMessage, sendMessageImage } from "./chatApi";
+import {
+  createChatRoom,
+  createOrGetChat,
+  getListChatRoom,
+  getMessage,
+  sendMessageImage,
+} from "./chatApi";
 
 const chaSlice = createSlice({
   name: "chat",
@@ -18,6 +24,10 @@ const chaSlice = createSlice({
       page: 1,
       hasMore: true,
     },
+    // nameChat: "",
+    // chatRoomId: "",
+    listChatRoom: [],
+    isOpenModal: false,
   },
   reducers: {
     //thiết lập signlar
@@ -54,6 +64,12 @@ const chaSlice = createSlice({
       state.typingUsers = [];
       state.pagination = { page: 1, hasMore: true };
     },
+    openModal: (state) => {
+      state.isOpenModal = true;
+    },
+    closeModal: (state) => {
+      state.isOpenModal = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,7 +81,7 @@ const chaSlice = createSlice({
         state.loading.chat = false;
         state.currentChat = action.payload;
         state.messages = [];
-        state.pagination = { page: 1, hasMore: true };
+        // state.pagination = { page: 1, hasMore: true };
       })
       .addCase(createOrGetChat.rejected, (state, action) => {
         state.loading.chat = false;
@@ -98,7 +114,7 @@ const chaSlice = createSlice({
         state.loading.messages = false;
         state.error = action.payload;
       });
-        // sendMessageImage
+    // sendMessageImage
     builder
       .addCase(sendMessageImage.pending, (state) => {
         state.loading.sending = true;
@@ -112,6 +128,38 @@ const chaSlice = createSlice({
         state.loading.sending = false;
         state.error = action.payload;
       });
+    //list chat room
+    builder
+      .addCase(getListChatRoom.pending, (state) => {
+        state.loading.sending = true;
+        state.error = null;
+      })
+      .addCase(getListChatRoom.fulfilled, (state, action) => {
+        state.loading.sending = false;
+        // state.nameChat = action.payload.name;
+        // state.chatRoomId = action.payload.id;
+        state.listChatRoom = action.payload;
+      })
+      .addCase(getListChatRoom.rejected, (state, action) => {
+        state.loading.sending = false;
+        state.error = action.payload;
+      });
+    // create Chat room
+    builder
+      .addCase(createChatRoom.pending, (state) => {
+        state.loading.sending = true;
+        state.error = null;
+      })
+      .addCase(createChatRoom.fulfilled, (state, action) => {
+        state.loading.sending = false;
+        state.listChatRoom = action.payload;
+        state.isOpenModal = false;
+      })
+      .addCase(createChatRoom.rejected, (state, action) => {
+        state.loading.sending = false;
+        state.error = action.payload;
+        state.isOpenModal = false;
+      });
   },
 });
 
@@ -121,5 +169,7 @@ export const {
   receiveMessage,
   setUserTyping,
   clearCurrentChat,
+  openModal,
+  closeModal,
 } = chaSlice.actions;
 export default chaSlice.reducer;

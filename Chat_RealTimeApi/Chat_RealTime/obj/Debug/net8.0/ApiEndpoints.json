@@ -54,35 +54,10 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Chat_RealTime.Controllers.chat.ChatController",
-    "Method": "SendMessageImage",
-    "RelativePath": "api/Chat/SendMessageImg",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
     "Parameters": [
       {
-        "Name": "SenderId",
+        "Name": "userId",
         "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Content",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "ChatId",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "ImageFile",
-        "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       }
     ],

@@ -2,7 +2,10 @@
 {
     public class CreateOrGetChatInput
     {
-        public string CurrentUserId { get; set; } = "";
-        public string TargetUserId { get; set; } = "";
+        public string NguoiGuiID { get; set; } = "";
+        public string NguoiNhanId { get; set; } = "";
+        public string NameRoom { get; set; } = "";
+        public string roomId { get; set; } = "";
+        public List<string> participant { get; set; } = new List<string>();
     }
 }

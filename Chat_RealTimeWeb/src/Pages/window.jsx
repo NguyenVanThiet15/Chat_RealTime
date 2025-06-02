@@ -24,34 +24,40 @@ import {
   setConnection,
   setUserTyping,
 } from "../Features/Chat/chatSlice";
-const ChatWindow = ({ targetUser, currentUser, onClose }) => {
+import ChatRoom from "./createChatRoom";
+const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
   const { currentChat, messages, loading, connection } = useSelector(
     (state) => state.chat
   );
+  const isOpenModal = useSelector((state) => state.chat.isOpenModal);
   const dispatch = useDispatch();
   const [messageText, setMessageText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
   const typingTimeoutRef = useRef(null);
   const { Text } = Typography;
-
+  // console.log("nhomChatRoom", nhomChatRoom);
   useEffect(() => {
-    if (targetUser && currentUser) {
+    debugger;
+    if (nguoiNhan && nguoiGuiID && nhomChatRoom) {
       dispatch(
         createOrGetChat({
-          currentUserId: currentUser,
-          targetUserId: targetUser.id,
+          nguoiGuiId: nguoiGuiID,
+          nguoiNhanId: nguoiNhan.id,
+          nameRoom: nhomChatRoom.nameRoom,
+          roomId: nhomChatRoom.id,
+          participant: nhomChatRoom.participants,
         })
       );
     }
-  }, [targetUser, currentUser]);
+  }, [nguoiNhan, nguoiGuiID, nhomChatRoom]);
 
   const handleTyping = (e) => {
     setMessageText(e.target.value);
 
     if (!isTyping && connection && currentChat) {
       setIsTyping(true);
-      connection.invoke("Typing", currentChat.id, currentUser, true);
+      connection.invoke("Typing", currentChat.id, nguoiGuiID, true);
     }
 
     // Clear timeout cũ
@@ -63,14 +69,14 @@ const ChatWindow = ({ targetUser, currentUser, onClose }) => {
     typingTimeoutRef.current = setTimeout(() => {
       setIsTyping(false);
       if (connection && currentChat) {
-        connection.invoke("Typing", currentChat.id, currentUser, false);
+        connection.invoke("Typing", currentChat.id, nguoiGuiID, false);
       }
     }, 2000);
   };
 
   useEffect(() => {
     const setupSignalR = async () => {
-      debugger;
+      // debugger;
       const token = localStorage.getItem("token");
       if (!token) {
         console.log("không tìm thấy token ");
@@ -115,8 +121,9 @@ const ChatWindow = ({ targetUser, currentUser, onClose }) => {
     };
   }, [dispatch]);
 
-  console.log("curuntchat", currentChat);
-  console.log("message", messages);
+  // console.log("curuntchat", currentChat);
+  // console.log("message", messages);
+  console.log("nguoiNhan", nguoiNhan);
 
   const handleSendMessage = async () => {
     if (!messageText.trim() || !currentChat) return;
@@ -125,24 +132,24 @@ const ChatWindow = ({ targetUser, currentUser, onClose }) => {
       await connection.invoke(
         "SendMessage",
         currentChat.id,
-        currentUser,
+        nguoiGuiID,
         messageText
       );
     }
     setMessageText("");
   };
-  const handleSendMessageImg = async (info) => {
-    debugger;
-    const file = info.file.originFileObj;
-    if (!file) return;
-    dispatch(
-      sendMessageImage({
-        chatId: currentChat.id,
-        imageFile: file,
-        senderId: currentUser,
-      })
-    );
-  };
+  // const handleSendMessageImg = async (info) => {
+  //   debugger;
+  //   const file = info.file.originFileObj;
+  //   if (!file) return;
+  //   dispatch(
+  //     sendMessageImage({
+  //       chatId: currentChat.id,
+  //       imageFile: file,
+  //       senderId: nguoiGuiID,
+  //     })
+  //   );
+  // };
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleTimeString("vi-VN", {
@@ -152,118 +159,130 @@ const ChatWindow = ({ targetUser, currentUser, onClose }) => {
   };
   useEffect(() => {
     if (currentChat && connection) {
-      connection.invoke("JoinChat", currentChat.id, currentUser);
+      connection.invoke("JoinChat", currentChat.id, nguoiGuiID);
       dispatch(getMessage({ chatId: currentChat.id }));
     }
-  }, [currentChat, connection, currentUser]);
+  }, [currentChat, connection, nguoiGuiID]);
 
   return (
-    <Card
-      style={{ height: "100%", display: "flex", flexDirection: "column" }}
-      bodyStyle={{
-        padding: 0,
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      title={
-        <Space>
-          <Avatar size="small">{targetUser.userName}</Avatar>
-          <div>
-            <Text strong>{targetUser.userName} </Text>
-            <br />
-            <Text type="secondary" style={{ fontSize: 12 }}>
-              {/* {typingUsers.includes(targetUser.userId) ? 'Đang gõ...' : 'Trực tuyến'} */}
-            </Text>
-          </div>
-        </Space>
-      }
-      extra={
-        <Button
-          type="text"
-          //   icon={<CloseOutlined />}
-          onClick={onClose}
-          size="small"
-        />
-      }
-    >
-      <div
-        style={{
-          flex: 1,
-          overflow: "auto",
-          padding: "16px",
-          maxHeight: "calc(100% - 120px)",
+    <>
+      <Card
+        style={{ height: "100%", display: "flex", flexDirection: "column" }}
+        bodyStyle={{
+          padding: 0,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
         }}
+        title={
+          <Space>
+            {/* <Avatar size="small">{targetUser.userName}</Avatar> */}
+            <div>
+              <Text strong>{nguoiNhan.userName} </Text>
+              <br />
+              <Text type="secondary" style={{ fontSize: 12 }}>
+                {/* {typingUsers.includes(targetUser.userId) ? 'Đang gõ...' : 'Trực tuyến'} */}
+              </Text>
+            </div>
+          </Space>
+        }
+        extra={
+          <Button
+            type="text"
+            //   icon={<CloseOutlined />}
+            onClick={onClose}
+            size="small"
+          />
+        }
       >
-        {loading.messages && (
-          <div style={{ textAlign: "center", padding: 20 }}>
-            <Spin />
-          </div>
-        )}
-      </div>
-      <List
-        dataSource={messages}
-        renderItem={(message) => (
-          <List.Item
-            style={{
-              border: "none",
-              padding: "4px 0",
-              justifyContent:
-                message.senderId === currentUser ? "flex-end" : "flex-start",
-            }}
-          >
-            <div>{message.content}</div>
-            <div
+        <div
+          style={{
+            flex: 1,
+            overflow: "auto",
+            padding: "16px",
+            maxHeight: "calc(100% - 120px)",
+          }}
+        >
+          {loading.messages && (
+            <div style={{ textAlign: "center", padding: 20 }}>
+              <Spin />
+            </div>
+          )}
+        </div>
+        <List
+          dataSource={messages}
+          renderItem={(message) => (
+            <List.Item
               style={{
-                fontSize: 11,
-                opacity: 0.7,
-                marginTop: 4,
-                textAlign: "right",
+                border: "none",
+                padding: "4px 0",
+                justifyContent:
+                  message.senderId === nguoiGuiID ? "flex-end" : "flex-start",
               }}
             >
-              {formatTime(message.createdAt)}
-              {message.senderId === currentUser && (
-                <span style={{ marginLeft: 4 }}>
-                  {message.isRead ? "✓✓" : "✓"}
-                </span>
-              )}
-            </div>
-          </List.Item>
-        )}
-      ></List>
-      <div ref={messagesEndRef} />
-      <div style={{ borderTop: "1px solid #f0f0f0" }}>
-        <Space.Compact style={{ width: "100%" }}>
-          {/* <Input type="file" onChange={handleSendMessageImg}></Input> */}
-          <Upload
-            accept="image/*"
-            showUploadList={false}
-            beforeUpload={() => false}
-            onChange={handleSendMessageImg}
-          >
-            <Button icon={<UploadOutlined />}>Gửi ảnh</Button>
-          </Upload>
-        </Space.Compact>
-        <Space.Compact style={{ width: "100%" }}>
-          <Input.TextArea
-            value={messageText}
-            onChange={(e) => handleTyping(e)}
-            // onKeyPress={handleKeyPress}
-            placeholder="Nhập tin nhắn..."
-            autoSize={{ minRows: 1, maxRows: 3 }}
-            style={{ resize: "none" }}
-            disabled={loading.sending}
-          ></Input.TextArea>
-          <Button
-            type="primary"
-            icon={<SendOutlined />}
-            onClick={handleSendMessage}
-            disabled={!messageText.trim() || loading.sending}
-            loading={loading.sending}
-          ></Button>
-        </Space.Compact>
-      </div>
-    </Card>
+              <div
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  lineHeight: "1.8",
+                }}
+              >
+                {message.content}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  opacity: 0.7,
+                  marginTop: 4,
+                  textAlign: "right",
+                }}
+              >
+                {formatTime(message.createdAt)}
+                {message.senderId === nguoiGuiID && (
+                  <span style={{ marginLeft: 4 }}>
+                    {message.isRead ? "✓✓" : "✓"}
+                  </span>
+                )}
+              </div>
+            </List.Item>
+          )}
+        ></List>
+        <div ref={messagesEndRef} />
+        <div style={{ borderTop: "1px solid #f0f0f0" }}>
+          {/* <Space.Compact style={{ width: "100%" }}>
+         
+            <Upload
+              accept="image/*"
+              showUploadList={false}
+              beforeUpload={() => false}
+              onChange={handleSendMessageImg}
+            >
+              <Button icon={<UploadOutlined />}>Gửi ảnh</Button>
+            </Upload>
+          </Space.Compact> */}
+          <Space.Compact style={{ width: "100%" }}>
+            <Input.TextArea
+              value={messageText}
+              onChange={(e) => handleTyping(e)}
+              // onKeyPress={handleKeyPress}
+              placeholder="Nhập tin nhắn..."
+              autoSize={{ minRows: 1, maxRows: 3 }}
+              style={{ resize: "none" }}
+              disabled={loading.sending}
+            ></Input.TextArea>
+            <Button
+              type="primary"
+              icon={<SendOutlined />}
+              onClick={handleSendMessage}
+              disabled={!messageText.trim() || loading.sending}
+              loading={loading.sending}
+            ></Button>
+          </Space.Compact>
+        </div>
+      </Card>
+      {isOpenModal && <ChatRoom />}
+    </>
   );
 };
 export default ChatWindow;
