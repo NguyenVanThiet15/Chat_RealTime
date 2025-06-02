@@ -1,0 +1,460 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\ChatRealtime\\Chat_RealTimeApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\chat\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\chat\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\services\\chat\\chatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\services\\chat\\chatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\chat\\dtos\\sendmessageinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\chat\\dtos\\sendmessageinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\services\\chat\\chatcacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\services\\chat\\chatcacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\user\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\user\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\models\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\models\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\chat_realtime.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\chat_realtime.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\services\\chat\\ichatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\services\\chat\\ichatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\chat\\dtos\\createorgetchatinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\chat\\dtos\\createorgetchatinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\services\\user\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\services\\user\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\user\\dtos\\loginoutput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\user\\dtos\\loginoutput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\services\\user\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\services\\user\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\services\\user\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\services\\user\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\services\\user\\ijwtservicer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\services\\user\\ijwtservicer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\chat\\dtos\\createchatroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\chat\\dtos\\createchatroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\chat\\dtos\\messagewithsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\chat\\dtos\\messagewithsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\models\\mongodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\models\\mongodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\user\\dtos\\resgisterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\user\\dtos\\resgisterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\controllers\\user\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\controllers\\user\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|d:\\chatrealtime\\chat_realtimeapi\\chat_realtime\\chat_realtime.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{D0A844E7-A871-4B5A-9440-1ABCF13AD662}|Chat_RealTime\\Chat_RealTime.csproj|solutionrelative:chat_realtime\\chat_realtime.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChatHub.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Hubs\\ChatHub.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Hubs\\ChatHub.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Hubs\\ChatHub.cs",
+              "RelativeToolTip": "Chat_RealTime\\Hubs\\ChatHub.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAIwDEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T15:26:41.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\ChatController.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\chat\\ChatController.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\ChatController.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\chat\\ChatController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAIwDwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T15:14:27.62Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Program.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Program.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Program.cs",
+              "RelativeToolTip": "Chat_RealTime\\Program.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAmwHIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T14:03:18.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ChatService.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\chat\\ChatService.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Services\\chat\\ChatService.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\chat\\ChatService.cs",
+              "RelativeToolTip": "Chat_RealTime\\Services\\chat\\ChatService.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAnwFcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T15:15:02.858Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IChatService.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\chat\\IChatService.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Services\\chat\\IChatService.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\chat\\IChatService.cs",
+              "RelativeToolTip": "Chat_RealTime\\Services\\chat\\IChatService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T15:18:56.24Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CreateOrGetChatInput.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\Dtos\\CreateOrGetChatInput.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\chat\\Dtos\\CreateOrGetChatInput.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\Dtos\\CreateOrGetChatInput.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\chat\\Dtos\\CreateOrGetChatInput.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T02:36:06.76Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Message.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Models\\Message.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Models\\Message.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Models\\Message.cs",
+              "RelativeToolTip": "Chat_RealTime\\Models\\Message.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T15:02:28.94Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Models\\User.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Models\\User.cs",
+              "RelativeToolTip": "Chat_RealTime\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T01:13:48.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SendMessageInput.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\Dtos\\SendMessageInput.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\chat\\Dtos\\SendMessageInput.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\Dtos\\SendMessageInput.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\chat\\Dtos\\SendMessageInput.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T02:36:58.403Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\user\\UserController.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\user\\UserController.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\user\\UserController.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\user\\UserController.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAgwEwAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T01:13:05.465Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ChatCacheService.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\chat\\ChatCacheService.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Services\\chat\\ChatCacheService.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\chat\\ChatCacheService.cs",
+              "RelativeToolTip": "Chat_RealTime\\Services\\chat\\ChatCacheService.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAcwBoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-27T14:56:42.354Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Chat_RealTime.csproj",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Chat_RealTime.csproj",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj",
+              "RelativeToolTip": "Chat_RealTime\\Chat_RealTime.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-17T11:37:28.902Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\appsettings.json",
+              "RelativeDocumentMoniker": "Chat_RealTime\\appsettings.json",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\appsettings.json",
+              "RelativeToolTip": "Chat_RealTime\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-17T14:20:01.64Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Chat.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Models\\Chat.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Models\\Chat.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Models\\Chat.cs",
+              "RelativeToolTip": "Chat_RealTime\\Models\\Chat.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAUAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T14:58:32.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\user\\IUserService.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Services\\user\\IUserService.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\user\\IUserService.cs",
+              "RelativeToolTip": "Chat_RealTime\\Services\\user\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T01:15:32.33Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "LoginOutput.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\user\\Dtos\\LoginOutput.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\user\\Dtos\\LoginOutput.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\user\\Dtos\\LoginOutput.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\user\\Dtos\\LoginOutput.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T15:05:26.54Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\user\\UserService.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Services\\user\\UserService.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\user\\UserService.cs",
+              "RelativeToolTip": "Chat_RealTime\\Services\\user\\UserService.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAwwCsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T01:15:46.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "JwtService.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\user\\JwtService.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Services\\user\\JwtService.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\user\\JwtService.cs",
+              "RelativeToolTip": "Chat_RealTime\\Services\\user\\JwtService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAWwBIAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T14:38:53.087Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "IJwtServicer.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\user\\IJwtServicer.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Services\\user\\IJwtServicer.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Services\\user\\IJwtServicer.cs",
+              "RelativeToolTip": "Chat_RealTime\\Services\\user\\IJwtServicer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T15:41:31.344Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Dockerfile",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Dockerfile",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Dockerfile",
+              "RelativeToolTip": "Chat_RealTime\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-17T11:57:36.366Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MongoDBContext.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Models\\MongoDBContext.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Models\\MongoDBContext.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Models\\MongoDBContext.cs",
+              "RelativeToolTip": "Chat_RealTime\\Models\\MongoDBContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T08:29:16.492Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "CreateChatRoom.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\Dtos\\CreateChatRoom.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\chat\\Dtos\\CreateChatRoom.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\Dtos\\CreateChatRoom.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\chat\\Dtos\\CreateChatRoom.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-21T15:14:37.409Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "MessageWithSender.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\Dtos\\MessageWithSender.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\chat\\Dtos\\MessageWithSender.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\chat\\Dtos\\MessageWithSender.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\chat\\Dtos\\MessageWithSender.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T08:07:30.232Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ResgisterDto.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\user\\Dtos\\ResgisterDto.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\user\\Dtos\\ResgisterDto.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\user\\Dtos\\ResgisterDto.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\user\\Dtos\\ResgisterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T04:13:03.996Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\user\\Dtos\\LoginDto.cs",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Controllers\\user\\Dtos\\LoginDto.cs",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Controllers\\user\\Dtos\\LoginDto.cs",
+              "RelativeToolTip": "Chat_RealTime\\Controllers\\user\\Dtos\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T04:13:19.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Docker-compose.yml",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Docker-compose.yml",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Docker-compose.yml",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Docker-compose.yml",
+              "RelativeToolTip": "Chat_RealTime\\Docker-compose.yml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2025-05-19T09:24:26.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Chat_RealTime.http",
+              "DocumentMoniker": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.http",
+              "RelativeDocumentMoniker": "Chat_RealTime\\Chat_RealTime.http",
+              "ToolTip": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.http",
+              "RelativeToolTip": "Chat_RealTime\\Chat_RealTime.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-05-17T11:29:34.344Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
