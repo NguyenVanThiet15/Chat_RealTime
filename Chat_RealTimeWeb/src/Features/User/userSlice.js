@@ -8,8 +8,11 @@ const userSlice = createSlice({
     loading: false,
     error: null,
     userName: "",
+   
   },
-  reducers: {},
+  reducers: {
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getListUser.pending, (state) => {

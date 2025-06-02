@@ -5,12 +5,20 @@ const API_URL = "https://localhost:7152/api";
 
 export const createOrGetChat = createAsyncThunk(
   "chat/createOrGetChat",
-  async ({ currentUserId, targetUserId }, { rejectWithValue }) => {
+  async (
+    { nameRoom, roomId, nguoiGuiId, nguoiNhanId,
+      participant
+     },
+    { rejectWithValue }
+  ) => {
     try {
       debugger;
       const response = await axios.post(`${API_URL}/chat/createOrGetChat`, {
-        currentUserId,
-        targetUserId,
+        nguoiGuiId,
+        nguoiNhanId,
+        nameRoom,
+        roomId,
+        participant
       });
       return response.data;
     } catch (error) {
@@ -51,8 +59,6 @@ export const sendMessageImage = createAsyncThunk(
   "chat/sendMessage",
   async ({ chatId, imageFile, senderId }, { rejectWithValue }) => {
     try {
-      debugger;
-      debugger;
       const response = await axios.post(
         `${API_URL}/chat/${chatId}/SendMessageImg`,
         {
@@ -60,6 +66,37 @@ export const sendMessageImage = createAsyncThunk(
           senderId,
         }
       );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const getListChatRoom = createAsyncThunk(
+  "chat/listChatRoom",
+  async (userId, { rejectWithValue }) => {
+    try {
+      debugger;
+      const response = await axios.get(
+        `${API_URL}/chat/getListChatRoom?userId=${userId}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const createChatRoom = createAsyncThunk(
+  "chat/createChatRoom",
+  async ({ userId, nameRoom, nguoiThamGia }, { rejectWithValue }) => {
+    try {
+      debugger;
+      const response = await axios.post(`${API_URL}/chat/createChat`, {
+        nameRoom,
+        nguoiThamGia,
+        userId,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

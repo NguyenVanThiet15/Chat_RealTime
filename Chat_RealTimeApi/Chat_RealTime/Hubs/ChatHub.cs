@@ -65,8 +65,10 @@ namespace Chat_RealTime.Hubs
 
         }
 
-        public async Task SendMessage(string chatId, string senderId, string content,MessageType messageType,string? filename = null, string? fileUrl= null,
-            long? fileSize= null,string? mimeType = null)
+        public async Task SendMessage(string chatId, string senderId, string content
+            //,MessageType messageType,string? filename = null, string? fileUrl= null,
+            //long? fileSize= null,string? mimeType = null
+            )
         {
             try
             {
@@ -76,11 +78,11 @@ namespace Chat_RealTime.Hubs
                     SenderId = senderId,
                     Content = content,
                     IsRead = false,
-                    TypeMessage = messageType,
-                    FileName = filename,
-                    FileUrl = fileUrl,
-                    FileSize = fileSize,
-                    MineType = mimeType,
+                    //TypeMessage = messageType,
+                    //FileName = filename,
+                    //FileUrl = fileUrl,
+                    //FileSize = fileSize,
+                    //MineType = mimeType,
                     CreatedAt = DateTime.UtcNow
 
                 };

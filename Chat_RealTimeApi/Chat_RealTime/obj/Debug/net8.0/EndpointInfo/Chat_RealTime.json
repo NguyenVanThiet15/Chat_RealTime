@@ -41,6 +41,15 @@
         "tags": [
           "Chat"
         ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -94,61 +103,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Chat/SendMessageImg": {
-      "post": {
-        "tags": [
-          "Chat"
-        ],
-        "parameters": [
-          {
-            "name": "SenderId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Content",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "ChatId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ImageFile": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              },
-              "encoding": {
-                "ImageFile": {
-                  "style": "form"
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -312,29 +266,22 @@
   },
   "components": {
     "schemas": {
-      "ChatType": {
-        "enum": [
-          0,
-          1
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
       "CreateChatRoom": {
         "type": "object",
         "properties": {
-          "name": {
+          "nameRoom": {
             "type": "string",
             "nullable": true
           },
-          "chatType": {
-            "$ref": "#/components/schemas/ChatType"
-          },
-          "participants": {
+          "nguoiThamGia": {
             "type": "array",
             "items": {
               "type": "string"
             },
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -343,12 +290,27 @@
       "CreateOrGetChatInput": {
         "type": "object",
         "properties": {
-          "currentUserId": {
+          "nguoiGuiID": {
             "type": "string",
             "nullable": true
           },
-          "targetUserId": {
+          "nguoiNhanId": {
             "type": "string",
+            "nullable": true
+          },
+          "nameRoom": {
+            "type": "string",
+            "nullable": true
+          },
+          "roomId": {
+            "type": "string",
+            "nullable": true
+          },
+          "participant": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "nullable": true
           }
         },
