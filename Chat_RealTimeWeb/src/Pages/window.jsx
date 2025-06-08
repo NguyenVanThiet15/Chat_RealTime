@@ -99,7 +99,7 @@ const ChatWindow = ({
         return;
       }
       const newConnection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:7152/chathub", {
+        .withUrl("http://192.168.1.8:5231/chathub", {
           accessTokenFactory: () => token,
         })
         .withAutomaticReconnect([0, 2000, 10000, 30000])
