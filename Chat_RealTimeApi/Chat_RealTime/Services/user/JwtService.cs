@@ -21,8 +21,8 @@ namespace Chat_RealTime.Services.user
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub,input.Id),
-                new Claim(JwtRegisteredClaimNames.Sub,input.Email),
+                new Claim(ClaimTypes.NameIdentifier,input.Id),
+                new Claim(ClaimTypes.Email,input.Email),
                 new Claim("userName",input.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat,

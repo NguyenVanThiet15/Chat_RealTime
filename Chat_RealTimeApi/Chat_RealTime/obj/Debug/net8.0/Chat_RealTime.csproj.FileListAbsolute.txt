@@ -137,10 +137,11 @@ D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\staticwebassets\
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Chat_RealTime.props
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Chat_RealTime.props
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\staticwebassets.pack.json
-D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\Chat_Rea.4F9AE527.Up2Date
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\Chat_RealTime.dll
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\refint\Chat_RealTime.dll
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\Chat_RealTime.pdb
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\Chat_RealTime.genruntimeconfig.cache
 D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\ref\Chat_RealTime.dll
+D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\Chat_RealTime.sourcelink.json
+D:\ChatRealtime\Chat_RealTimeApi\Chat_RealTime\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

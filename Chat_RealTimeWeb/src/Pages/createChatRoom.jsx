@@ -39,13 +39,12 @@ const ChatRoom = () => {
       dispatch(closeModal());
       form.resetFields();
     }
-  });
+  }, [loading, error, isOpenModal]);
   const onCancel = () => {
     form.resetFields();
     dispatch(closeModal());
   };
   const onSave = async () => {
-    debugger;
     const values = await form.validateFields();
     dispatch(
       createChatRoom({
@@ -60,8 +59,7 @@ const ChatRoom = () => {
   const changeNguoiThamGia = () => {
     dispatch(getListUser());
   };
-  console.log("user", user);
-  console.log("user", dataUser);
+
   return (
     <>
       <Modal

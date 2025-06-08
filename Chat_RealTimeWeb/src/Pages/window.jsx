@@ -1,22 +1,14 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  Input,
-  List,
-  Space,
-  Spin,
-  Typography,
-  Upload,
-} from "antd";
+import { Button, Card, Input, List, Space, Spin, Typography } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createOrGetChat,
   getMessage,
-  sendMessageImage,
+  // getMessage,
+  // joinChatRedis,
+  // SendMessageChatRedis,
 } from "../Features/Chat/chatApi";
-import { SendOutlined, UploadOutlined } from "@ant-design/icons";
+import { SendOutlined } from "@ant-design/icons";
 import * as signalR from "@microsoft/signalr";
 import {
   clearConnection,
@@ -25,7 +17,15 @@ import {
   setUserTyping,
 } from "../Features/Chat/chatSlice";
 import ChatRoom from "./createChatRoom";
-const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
+// import useChatWebSocket from "../Hooks/useChatWebSocket";
+const ChatWindow = ({
+  nguoiNhan,
+  nguoiGuiID,
+  onClose,
+  nhomChatRoom,
+  chatType,
+  typingUsers,
+}) => {
   const { currentChat, messages, loading, connection } = useSelector(
     (state) => state.chat
   );
@@ -36,21 +36,36 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
   const messagesEndRef = useRef(null);
   const typingTimeoutRef = useRef(null);
   const { Text } = Typography;
-  // console.log("nhomChatRoom", nhomChatRoom);
+
   useEffect(() => {
-    debugger;
-    if (nguoiNhan && nguoiGuiID && nhomChatRoom) {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    if (nguoiGuiID && nhomChatRoom) {
+      dispatch(
+        createOrGetChat({
+          nguoiGuiId: nguoiGuiID,
+          nguoiNhanId: "",
+          nameRoom: nhomChatRoom.name,
+          roomId: nhomChatRoom.id,
+          participant: nhomChatRoom.participants,
+          chatType: chatType,
+        })
+      );
+    } else if (nguoiNhan && nguoiGuiID) {
       dispatch(
         createOrGetChat({
           nguoiGuiId: nguoiGuiID,
           nguoiNhanId: nguoiNhan.id,
-          nameRoom: nhomChatRoom.nameRoom,
-          roomId: nhomChatRoom.id,
-          participant: nhomChatRoom.participants,
+          nameRoom: "",
+          roomId: "",
+          participant: [],
+          chatType: chatType,
         })
       );
     }
-  }, [nguoiNhan, nguoiGuiID, nhomChatRoom]);
+  }, [nguoiNhan, nguoiGuiID, nhomChatRoom, chatType]);
 
   const handleTyping = (e) => {
     setMessageText(e.target.value);
@@ -68,13 +83,14 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
     // Set timeout mới
     typingTimeoutRef.current = setTimeout(() => {
       setIsTyping(false);
-      if (connection && currentChat) {
+      if (currentChat) {
         connection.invoke("Typing", currentChat.id, nguoiGuiID, false);
       }
     }, 2000);
   };
 
   useEffect(() => {
+    debugger;
     const setupSignalR = async () => {
       // debugger;
       const token = localStorage.getItem("token");
@@ -92,14 +108,18 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
       // newConnection.serverTimeoutInMilliseconds = 120000;
       // newConnection.keepAliveIntervalInMilliseconds = 30000;
       try {
-        newConnection.onclose((error) => {
-          console.log("Signlar đã đóng ", error);
-        });
-        newConnection.onreconnecting((error) => {
-          console.log("đang thử kết nối lại ", error);
-        });
-        newConnection.onreconnected((error) => {
-          console.log("đã kết nối thành công", error);
+        // newConnection.onclose((error) => {
+        //   console.log("Signlar đã đóng ", error);
+        // });
+        // newConnection.onreconnecting((error) => {
+        //   console.log("đang thử kết nối lại ", error);
+        // });
+        newConnection.onreconnected((connectionId) => {
+          console.log("Đã kết nối thành công", connectionId);
+          // Rejoin chat room sau khi reconnect
+          if (currentChat) {
+            newConnection.invoke("JoinChat", currentChat.id, nguoiGuiID);
+          }
         });
         await newConnection.start().catch((err) => {
           console.error("lỗi signlar", err);
@@ -111,6 +131,12 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
         newConnection.on("Usertyping", (userId, isTyping) => {
           dispatch(setUserTyping({ userId, isTyping }));
         });
+        // newConnection.on("UserJoined", (userId, userName) => {
+        //   console.log(`${userName} đã tham gia nhóm chat `);
+        // });
+        // newConnection.on("UserLeft", (userId, userName) => {
+        //   console.log(`${userName} đã rời nhóm chat `);
+        // });
       } catch (error) {
         console.error("SignalR connection failed:", error);
       }
@@ -123,33 +149,18 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
 
   // console.log("curuntchat", currentChat);
   // console.log("message", messages);
-  console.log("nguoiNhan", nguoiNhan);
+  // console.log("nguoiNhan", nguoiNhan);
+  // console.log("chatType", chatType);
 
   const handleSendMessage = async () => {
     if (!messageText.trim() || !currentChat) return;
-
     if (connection) {
-      await connection.invoke(
-        "SendMessage",
-        currentChat.id,
-        nguoiGuiID,
-        messageText
-      );
+      connection.invoke("SendMessage", currentChat.id, nguoiGuiID, messageText);
     }
+
     setMessageText("");
   };
-  // const handleSendMessageImg = async (info) => {
-  //   debugger;
-  //   const file = info.file.originFileObj;
-  //   if (!file) return;
-  //   dispatch(
-  //     sendMessageImage({
-  //       chatId: currentChat.id,
-  //       imageFile: file,
-  //       senderId: nguoiGuiID,
-  //     })
-  //   );
-  // };
+
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleTimeString("vi-VN", {
@@ -157,6 +168,33 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
       minute: "2-digit",
     });
   };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+  const renderTypingIndicator = () => {
+    const typingUsersList =
+      typingUsers?.filter((userId) => userId !== nguoiGuiID) || [];
+    if (typingUsersList.length === 0) return null;
+
+    return (
+      <div
+        style={{
+          padding: "8px 16px",
+          fontStyle: "italic",
+          color: "#666",
+          fontSize: "12px",
+        }}
+      >
+        {typingUsersList.length === 1
+          ? "Có ai đó đang gõ..."
+          : `${typingUsersList.length} người đang gõ...`}
+      </div>
+    );
+  };
+
   useEffect(() => {
     if (currentChat && connection) {
       connection.invoke("JoinChat", currentChat.id, nguoiGuiID);
@@ -176,9 +214,13 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
         }}
         title={
           <Space>
-            {/* <Avatar size="small">{targetUser.userName}</Avatar> */}
             <div>
-              <Text strong>{nguoiNhan.userName} </Text>
+              {chatType === "Private" ? (
+                <Text strong>{nguoiNhan.userName} </Text>
+              ) : (
+                <Text strong>{nhomChatRoom.name} </Text>
+              )}
+
               <br />
               <Text type="secondary" style={{ fontSize: 12 }}>
                 {/* {typingUsers.includes(targetUser.userId) ? 'Đang gõ...' : 'Trực tuyến'} */}
@@ -220,16 +262,31 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
                   message.senderId === nguoiGuiID ? "flex-end" : "flex-start",
               }}
             >
-              <div
-                style={{
-                  border: "1px solid #ccc",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  lineHeight: "1.8",
-                }}
-              >
-                {message.content}
+              <div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: "#666",
+                    marginBottom: 2,
+                    textAlign:
+                      message.senderId === nguoiGuiID ? "right" : "left",
+                  }}
+                >
+                  {message.senderName || "Unknown"}
+                </div>
+                {/* )} */}
+                <div
+                  style={{
+                    border: "1px solid #ccc",
+                    borderRadius: "10px",
+                    padding: "10px",
+                    lineHeight: "1.8",
+                  }}
+                >
+                  {message.content}
+                </div>
               </div>
+
               <div
                 style={{
                   fontSize: 11,
@@ -248,10 +305,10 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
             </List.Item>
           )}
         ></List>
+        {renderTypingIndicator()}
         <div ref={messagesEndRef} />
         <div style={{ borderTop: "1px solid #f0f0f0" }}>
           {/* <Space.Compact style={{ width: "100%" }}>
-         
             <Upload
               accept="image/*"
               showUploadList={false}
@@ -265,7 +322,7 @@ const ChatWindow = ({ nguoiNhan, nguoiGuiID, onClose, nhomChatRoom }) => {
             <Input.TextArea
               value={messageText}
               onChange={(e) => handleTyping(e)}
-              // onKeyPress={handleKeyPress}
+              onKeyPress={handleKeyPress}
               placeholder="Nhập tin nhắn..."
               autoSize={{ minRows: 1, maxRows: 3 }}
               style={{ resize: "none" }}

@@ -7,5 +7,6 @@
         public string NameRoom { get; set; } = "";
         public string roomId { get; set; } = "";
         public List<string> participant { get; set; } = new List<string>();
+        public string ChatType { get; set; } = "";
     }
 }

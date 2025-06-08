@@ -24,7 +24,7 @@ namespace Chat_RealTime.Models
     }
     public enum ChatType
     {
-        Private ,
-        Group 
+        Private =0 ,
+        Group =1
     }
 }

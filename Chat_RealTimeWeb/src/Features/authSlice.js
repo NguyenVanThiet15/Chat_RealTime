@@ -10,7 +10,7 @@ const authSlice = createSlice({
     loading: false,
     error: null,
     isAuthenticated: !!localStorage.getItem("token"),
-    user: JSON.parse(localStorage.getItem("user")) || null,
+    // user: JSON.parse(localStorage.getItem("user")) || null,
     tokenGoogle: null,
   },
   reducers: {
@@ -57,13 +57,13 @@ const authSlice = createSlice({
         state.loading = false;
         state.userId = action.payload.userId;
         state.token = action.payload.token;
-        state.user = {
-          id: action.payload.userId,
-          useName: action.payload.useName,
-          email: action.payload.email,
-        };
+        // state.user = {
+        //   id: action.payload.userId,
+        //   useName: action.payload.useName,
+        //   email: action.payload.email,
+        // };
         state.isAuthenticated = true;
-        // localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("token", action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

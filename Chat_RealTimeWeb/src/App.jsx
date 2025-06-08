@@ -6,7 +6,7 @@ import ProtectedRoute from "./Components/protectedProduct";
 import Login from "./Pages/login";
 import Register from "./Pages/register";
 import Dashboard from "./Pages/dashboard";
-import ChatRoom from "./Pages/createChatRoom";
+
 
 const App = () => {
   return (
@@ -26,7 +26,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          {/* <Route path="/createChatRoom" element={<ChatRoom />} /> */}
         </Routes>
        
       </div>
