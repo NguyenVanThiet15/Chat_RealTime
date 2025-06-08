@@ -33,20 +33,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(getListChatRoom(user));
+      dispatch(getListChatRoom());
     }
   }, [user]);
   const handleSelectUser = (clickedUser) => {
     setSelectedUser(clickedUser);
     setShowChat(true);
-    // selectedRoom(null);
-    setChatType("user");
+    setSelectedRoom(null);
+    setChatType("Private");
   };
   const handleSelectRoom = (clickedRoom) => {
     setShowChat(true);
     setSelectedRoom(clickedRoom);
-    // selectedUser(null);
-    setChatType("room");
+    setSelectedUser(null);
+    setChatType("Group");
   };
   const handleCloseChat = () => {
     setShowChat(false);

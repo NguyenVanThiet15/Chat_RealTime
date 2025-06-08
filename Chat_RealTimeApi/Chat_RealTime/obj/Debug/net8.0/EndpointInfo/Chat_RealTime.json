@@ -41,15 +41,6 @@
         "tags": [
           "Chat"
         ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -311,6 +302,10 @@
             "items": {
               "type": "string"
             },
+            "nullable": true
+          },
+          "chatType": {
+            "type": "string",
             "nullable": true
           }
         },

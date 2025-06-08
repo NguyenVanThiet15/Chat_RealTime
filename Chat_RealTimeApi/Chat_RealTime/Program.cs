@@ -8,8 +8,9 @@ using Chat_RealTime.Models;
 using Chat_RealTime.Controllers.chat;
 using Chat_RealTime.Services.chat;
 using Chat_RealTime.Hubs;
-
-
+using Chat_RealTime.Services.Redis;
+using StackExchange.Redis;
+using Chat_RealTime.Connection;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,14 +25,14 @@ builder.Services.AddSingleton<MongoDBContext>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtServicer, JwtService>();
 builder.Services.AddScoped<IChatService, ChatService>();
-builder.Services.AddScoped<IChatCacheService, ChatCacheService>();
+//builder.Services.AddScoped<IChatCacheService, ChatCacheService>();
+builder.Services.AddScoped<IChatRedisService, ChatRedisService>();
 
 //redis
 //builder.Services.AddSignalR().AddStackExchangeRedis("redis:6379");
 builder.Services.AddSignalR();
-//mongoDb 
-//builder.Services.AddSingleton<IMongoClient>(s =>
-//    new MongoClient("mongodb://mongodb:27017"));
+ 
+
 builder.Services.AddSingleton<IMongoClient>(s =>
 {
     var config = s.GetRequiredService<IConfiguration>();
@@ -53,6 +54,12 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
 
+builder.Services.AddSingleton<IConnectionMultiplexer>(provider =>
+{
+    var connectinonString = builder.Configuration.GetConnectionString("Redis") ?? "localhost:6379";
+    return ConnectionMultiplexer.Connect(connectinonString);
+});
+
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
@@ -66,7 +73,7 @@ builder.Services.AddAuthentication("Bearer")
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-            ClockSkew = TimeSpan.Zero
+            //ClockSkew = TimeSpan.Zero
         };
         options.Events = new JwtBearerEvents
         {
@@ -92,13 +99,20 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFE",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000")
+            policy.WithOrigins("http://192.168.1.8:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
         });
     
 });
+builder.WebHost.ConfigureKestrel(s =>
+{
+    s.ListenAnyIP(5231);
+});
+
+
+builder.Services.AddSingleton<IUserConnection, UserConnection>();
 
 var app = builder.Build();
 
@@ -109,7 +123,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseRequestLocalization();
 app.UseCors("AllowFE");
 app.UseStaticFiles();

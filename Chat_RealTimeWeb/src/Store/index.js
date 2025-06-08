@@ -15,7 +15,6 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-    // quote: quoteReducer,
     user: userReducer,
     chat: chatReducer,
   },
