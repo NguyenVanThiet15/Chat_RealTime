@@ -10,7 +10,7 @@ namespace Chat_RealTime.Models
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
 
-        public ChatType Type { get; set; }
+        public ChatType Type { get; set; } 
 
         [BsonRepresentation(BsonType.ObjectId)]
         public List<string> Participants { get; set; } = new List<string>();

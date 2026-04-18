@@ -1,20 +1,45 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Security.AccessControl;
+using System.Text;
+using System.Text.RegularExpressions;
 using Chat_RealTime.Controllers.chat.Dtos;
 using Chat_RealTime.Models;
+using Google.Apis.Auth.OAuth2.Requests;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Minio;
+using Minio.DataModel.Args;
 using MongoDB.Driver;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace Chat_RealTime.Services.chat
 {
-    public class ChatService:IChatService
+    public class ChatService : IChatService
     {
         private readonly IMongoCollection<Message> _messages;
         private readonly IMongoCollection<Chat> _chats;
-        public ChatService(MongoDBContext contextMessage, MongoDBContext contextChat
+
+
+        private readonly IMinioClient _minioClient;
+        private readonly MiniOSetting _settings;
+
+        public ChatService(
+            MongoDBContext contextMessage,
+            MongoDBContext contextChat,
+            IMinioClient minioClient,
+            IOptions<MiniOSetting> settings
             )
         {
+
             _messages = contextMessage.Message;
             _chats = contextChat.Chat;
+            _minioClient = minioClient;
+            _settings = settings.Value;
+            if (_minioClient == null)
+            {
+                Console.WriteLine("⚠️ MinIO client is not available");
+            }
         }
 
 
@@ -40,15 +65,15 @@ namespace Chat_RealTime.Services.chat
                 await _chats.InsertOneAsync(roomChat);
                 return roomChat;
             }
-          
+
         }
         public async Task<List<Chat>> GetUserChatsAsync(string userId)
         {
-            return await _chats.Find(c => c.Participants.Contains(userId)&& c.Type == ChatType.Group  ).ToListAsync();
+            return await _chats.Find(c => c.Participants.Contains(userId) && c.Type == ChatType.Group).ToListAsync();
         }
         public async Task<Chat> CreateOrGetChat(CreateOrGetChatInput input)
         {
-            if(! Enum.TryParse<ChatType>(input.ChatType, true, out var chatTypeInput))
+            if (!Enum.TryParse<ChatType>(input.ChatType, true, out var chatTypeInput))
             {
                 chatTypeInput = ChatType.Private;
             }
@@ -102,50 +127,92 @@ namespace Chat_RealTime.Services.chat
             }
         }
 
-
-            //public async Task<Message> SendMessage (SendMessageInput input)
-            //{
-            //    var message = new Message
-            //    {
-            //        ChatId = input.ChatId,
-            //        SenderId = input.SenderId,
-            //        Content = input.Content,
-            //        IsRead = false,
-            //        CreatedAt = DateTime.UtcNow,
-            //    };
-            //    await _messages.InsertOneAsync(message);
-            //    await _chats.UpdateOneAsync(
-            //            Builders<Chat>.Filter.Eq(c => c.Id, input.ChatId),
-            //            Builders<Chat>.Update.Set(c => c.UpdatedAt, DateTime.UtcNow)
-            //        );
-
-            //    return message;
-
-        
-        public async Task<List<Message>> GetMessage (string ChatId )
+        public async Task<List<Message>> GetMessage(string ChatId, int skip)
         {
             var mesages = await _messages.Find(c => c.ChatId == ChatId)
                 .Sort(Builders<Message>.Sort.Descending(m => m.CreatedAt))
-                //.Skip(skip)
-                //.Limit(limit)
+                .Skip(skip)
+                .Limit(20)
                 .ToListAsync();
             mesages.Reverse();
             return mesages;
         }
-        //public async Task<Message> SendMessageImage(SendMessageInput input)
-        //{
-        //    if (input.ImageFile == null || input.ImageFile.Length == 0)
-        //    {
-        //        return BadRequest("không có ảnh đc gửi!");
-        //    }
-        //    var messageImg = new Message
-        //    {
-        //        ChatId = input.ChatId,
-        //        SenderId = input.SenderId,
-        //        Content = "Đã gửi 1 ảnh",
-        //        TypeMessage = MessageType.Image,
 
-        //    }
-        //}
+
+        public async Task<string> UploadFIleAsync(IFormFile file)
+        {
+            if (_minioClient == null)
+                throw new InvalidOperationException("MinIO is not configured");
+
+            using var inputStream = file.OpenReadStream();
+            using var outStream = new MemoryStream();
+
+            using (var image = await SixLabors.ImageSharp.Image.LoadAsync(inputStream)) {
+
+                image.Mutate(x => x.Resize(new ResizeOptions
+                {
+                    Mode = ResizeMode.Max,
+                    Size = new Size(500, 0)
+                }));
+                await image.SaveAsJpegAsync(outStream, new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder
+                {
+                    Quality = 50
+                });
+            }
+            outStream.Position = 0;  // ❗ Bắt buộc reset
+
+            var bucketName = _settings.BucketName;
+            var fileName = $"{Guid.NewGuid()}_{file.FileName}";
+
+            bool found = await _minioClient.BucketExistsAsync(
+                new Minio.DataModel.Args.BucketExistsArgs().WithBucket(bucketName));
+
+            if (!found) {
+                await _minioClient.MakeBucketAsync(
+                    new Minio.DataModel.Args.MakeBucketArgs().WithBucket(bucketName));
+            }
+            //using var stream = file.OpenReadStream();
+            await _minioClient.PutObjectAsync(
+            new PutObjectArgs()
+             .WithBucket(bucketName)
+             .WithObject(fileName)
+             .WithStreamData(outStream)
+             .WithObjectSize(outStream.Length)
+             .WithContentType(file.ContentType)
+             );
+
+            var url = await _minioClient.PresignedGetObjectAsync(
+                new PresignedGetObjectArgs()
+            .WithBucket(bucketName)
+            .WithObject(fileName)
+            .WithExpiry(60 * 60)
+            );// 1 giờ
+
+            return url;
+            //return $"https://{_settings.Endpoint}/{bucketName}/{fileName}";
+
+        }
+        public async Task InsertdataMessage(InsertMessageInput input)
+        {
+            var list = new List<Message>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                list.Add(new Message
+                {
+                    ChatId = input.ChatId,
+                    SenderId = input.SenderId,
+                    SenderName = input.SenderName,
+                    Content = $"Tin nhan {i}",
+                    CreatedAt = DateTime.UtcNow.AddMinutes(-i),
+                    IsRead = false,
+                    Type = 0
+                }
+                    );
+            }
+            await _messages.InsertManyAsync(list);
+
+        } 
     }
+
 }

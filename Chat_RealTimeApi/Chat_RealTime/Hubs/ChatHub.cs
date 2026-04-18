@@ -2,7 +2,6 @@
 using Chat_RealTime.Connection;
 using Chat_RealTime.Models;
 using Chat_RealTime.Services.chat;
-using Chat_RealTime.Services.Redis;
 using Chat_RealTime.Services.user;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -18,17 +17,17 @@ namespace Chat_RealTime.Hubs
         private readonly IMongoCollection<User> _user;
         private readonly IChatService _chatService;
         private readonly IUserConnection _connection;
-        private readonly IChatRedisService _chatRedis;
+        //private readonly IChatRedisService _chatRedis;
 
         public ChatHub(MongoDBContext context,
-            IChatService chatSercice,IUserConnection connection,IChatRedisService chatRedis)
+            IChatService chatSercice,IUserConnection connection)
         {
             _chats = context.Chat;
             _messages = context.Message;
             _chatService = chatSercice;
             _user = context.User;
             _connection = connection;
-            _chatRedis = chatRedis;
+            //_chatRedis = chatRedis;
 
         }
         public override async Task OnConnectedAsync()
@@ -51,7 +50,7 @@ namespace Chat_RealTime.Hubs
             _connection.RemoveUser(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);
         }
-        public async Task JoinChat(string chatId,string userId)
+        public async Task JoinChat(string chatId,string userId, int skip)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, chatId);
             var chat = await _chats.Find(c=> c.Id == chatId).FirstOrDefaultAsync();
@@ -60,7 +59,7 @@ namespace Chat_RealTime.Hubs
                 await Clients.Caller.SendAsync("Error", "chat khong ton tai ");
             };
 
-                var messages = await _chatService.GetMessage(chatId);
+                var messages = await _chatService.GetMessage(chatId , skip);
             await Clients.Caller.SendAsync("LoadMessages",messages);
 
             if (chat.Type == ChatType.Group)
@@ -69,14 +68,9 @@ namespace Chat_RealTime.Hubs
                 await Clients.GroupExcept(chatId, Context.ConnectionId)
                     .SendAsync("UserJoined", userId, user?.Name ?? "Unknown");
             }
-            ;
             await Clients.Groups(chatId).SendAsync("UserJoin", userId);
             Console.WriteLine($"user{userId} đã join chat{chatId}");
 
-            await _chatRedis.SubscribeToMessageAsync(chatId, async (messages) =>
-            {
-                await Clients.Group(chatId).SendAsync("ReceiveMessage", messages);
-            });
         }
 
         public async Task SendMessage(string chatId, string senderId, string content)
@@ -91,6 +85,7 @@ namespace Chat_RealTime.Hubs
                     SenderId = senderId,
                     Content = content,
                     IsRead = false,
+                    Type = MessageType.Text,
                     SenderName = seder?.UserName ?? "Unknow",
                     CreatedAt = DateTime.UtcNow
 
@@ -100,8 +95,6 @@ namespace Chat_RealTime.Hubs
                    Builders<Chat>.Filter.Eq(c=>c.Id,chatId),
                    Builders<Chat>.Update.Set(c=>c.UpdatedAt,DateTime.UtcNow));
 
-                await _chatRedis.PublishMessageAsync(chatId, message);
-
                 await Clients.Group(chatId).SendAsync("ReceiveMessage",message);
             }
             catch (Exception ex)
@@ -109,6 +102,8 @@ namespace Chat_RealTime.Hubs
                 await Clients.Caller.SendAsync("Error", ex.Message);
             }
         }
+     
+
      
         public async Task Typing(string chatId,string userId, bool isTyping)
         {

@@ -63,7 +63,7 @@ const Dashboard = () => {
           <Col span={6}>
             <Card
               style={{
-                height: "100%",
+                // height: "100%",
                 overflowY: "auto",
                 maxHeight: "calc(100vh - 100px)",
                 flexDirection: "column", // hoặc chiều cao cố định, ví dụ: 500

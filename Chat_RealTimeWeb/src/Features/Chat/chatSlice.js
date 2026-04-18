@@ -4,8 +4,6 @@ import {
   createOrGetChat,
   getListChatRoom,
   getMessage,
-  joinChatRedis,
-  SendMessageChatRedis,
   sendMessageImage,
 } from "./chatApi";
 
@@ -53,11 +51,11 @@ const chaSlice = createSlice({
     setUserTyping: (state, action) => {
       const { userId, isTyping } = action.payload;
       if (isTyping) {
-        if (!state.typingUser.includes(userId)) {
-          state.typingUser.push(userId);
+        if (!state.typingUsers.includes(userId)) {
+          state.typingUsers.push(userId);
         }
       } else {
-        state.typingUser = state.typingUser.filter((id) => id !== userId);
+        state.typingUsers = state.typingUsers.filter((id) => id !== userId);
       }
     },
     // Clear chat hiện tại
@@ -97,8 +95,13 @@ const chaSlice = createSlice({
         state.error = null;
       })
       .addCase(getMessage.fulfilled, (state, action) => {
-        state.loading.messages = false;
-        state.messages = action.payload;
+        if (state.skip === 0) {
+          // Load lần đầu
+          state.messages = action.payload;
+        } else {
+          // Load thêm tin nhắn cũ => thêm vào đầu
+          state.messages = [...action.payload, ...state.messages];
+        }
       })
       .addCase(getMessage.rejected, (state, action) => {
         state.loading.messages = false;
@@ -149,35 +152,6 @@ const chaSlice = createSlice({
         state.loading.sending = false;
         state.error = action.payload;
         state.isOpenModal = false;
-      });
-    //ChatRedis\
-    builder
-      .addCase(joinChatRedis.pending, (state) => {
-        state.loading.sending = true;
-        state.error = null;
-      })
-      .addCase(joinChatRedis.fulfilled, (state, action) => {
-        state.loading.sending = false;
-        state.currentChat = action.payload.chatId;
-        state.messages = action.payload.messages;
-        state.connection = true;
-      })
-      .addCase(joinChatRedis.rejected, (state, action) => {
-        state.loading.sending = false;
-        state.error = action.payload;
-      });
-
-    builder
-      .addCase(SendMessageChatRedis.pending, (state) => {
-        state.loading.sending = true;
-        state.error = null;
-      })
-      .addCase(SendMessageChatRedis.fulfilled, (state) => {
-        state.loading.sending = false;
-      })
-      .addCase(SendMessageChatRedis.rejected, (state, action) => {
-        state.loading.sending = false;
-        state.error = action.payload;
       });
   },
 });

@@ -1,5 +1,5 @@
 ﻿using Chat_RealTime.Controllers.user.Dtos;
-using Chat_RealTime.Resources;
+
 using Chat_RealTime.Services.user;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -12,13 +12,11 @@ namespace Chat_RealTime.Controllers.user
     {
         private readonly IUserService _userService;
         private readonly IJwtServicer _jwtServicer;
-        private readonly IStringLocalizer<ShareResource> _localizer;
 
-        public UserController(IUserService userService, IJwtServicer jwtService,IStringLocalizer<ShareResource> localizer)
+        public UserController(IUserService userService, IJwtServicer jwtService)
         {
             _userService = userService;
             _jwtServicer = jwtService;
-            _localizer = localizer;
         }
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(ResgisterDto input)
@@ -53,7 +51,7 @@ namespace Chat_RealTime.Controllers.user
                 //var hashPW = BCrypt.Net.BCrypt.HashPassword(input.Password);
                 if (user == null || !BCrypt.Net.BCrypt.Verify(input.Password, user.PasswordHash))
                 {
-                    return BadRequest(new { message = _localizer["SaiEmailHoacMatKhau"].Value });
+                    return BadRequest(new { message = "SaiEmailHoacMatKhau"});
                 }
                 var Token = _jwtServicer.GenerateToken(user);
                 return Ok(new LoginOutput
