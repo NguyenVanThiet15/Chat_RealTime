@@ -24,5 +24,13 @@ namespace Chat_RealTime.Models
 
         public DateTime? ReadAt { get; set; }
 
+        public MessageType Type { get; set; }
+
+
+    }
+    public enum MessageType
+    {
+        Text = 0,
+        Image = 1
     }
 }

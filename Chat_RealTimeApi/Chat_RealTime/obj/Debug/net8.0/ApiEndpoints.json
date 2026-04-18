@@ -11,6 +11,37 @@
         "Name": "ChatId",
         "Type": "System.String",
         "IsRequired": true
+      },
+      {
+        "Name": "skip",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chat_RealTime.Controllers.chat.ChatController",
+    "Method": "SendMessageImg",
+    "RelativePath": "api/Chat/{chatId}/getMessageImage",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "chatId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "SenderId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -55,6 +86,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chat_RealTime.Controllers.chat.ChatController",
+    "Method": "InsertdataMessage",
+    "RelativePath": "api/Chat/InsertDataMessage",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "input",
+        "Type": "Chat_RealTime.Controllers.chat.Dtos.InsertMessageInput",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+ï»¿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
@@ -8,9 +8,11 @@ using Chat_RealTime.Models;
 using Chat_RealTime.Controllers.chat;
 using Chat_RealTime.Services.chat;
 using Chat_RealTime.Hubs;
-using Chat_RealTime.Services.Redis;
+//using Chat_RealTime.Services.Redis;
 using StackExchange.Redis;
 using Chat_RealTime.Connection;
+using Microsoft.Extensions.Options;
+using Minio;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,12 +28,27 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtServicer, JwtService>();
 builder.Services.AddScoped<IChatService, ChatService>();
 //builder.Services.AddScoped<IChatCacheService, ChatCacheService>();
-builder.Services.AddScoped<IChatRedisService, ChatRedisService>();
+//builder.Services.AddScoped<IChatRedisService, ChatRedisService>();
 
 //redis
 //builder.Services.AddSignalR().AddStackExchangeRedis("redis:6379");
 builder.Services.AddSignalR();
- 
+// Config MinIO
+builder.Services.Configure<MiniOSetting>(builder.Configuration.GetSection("MinIO"));
+
+// Register MinIO client safely
+builder.Services.AddSingleton<IMinioClient>(sp =>
+{
+    var config = sp.GetRequiredService<IOptions<MiniOSetting>>().Value;
+
+    var client = new MinioClient()
+        .WithEndpoint(config.Endpoint)
+        .WithCredentials(config.AccessKey, config.SecretKey)
+        .WithSSL(config.UseSSL)
+        .Build();
+
+    return client;
+});
 
 builder.Services.AddSingleton<IMongoClient>(s =>
 {
@@ -82,7 +99,7 @@ builder.Services.AddAuthentication("Bearer")
                 var accessToken = context.Request.Query["access_token"];
                 var path = context.HttpContext.Request.Path;
 
-                // N?u request ??n SignalR hub và có token trong query string
+                // N?u request ??n SignalR hub vÃ  cÃ³ token trong query string
                 if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chathub"))
                 {
                     context.Token = accessToken;
@@ -99,7 +116,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFE",
         policy =>
         {
-            policy.WithOrigins("http://192.168.1.8:3000")
+            policy.WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();

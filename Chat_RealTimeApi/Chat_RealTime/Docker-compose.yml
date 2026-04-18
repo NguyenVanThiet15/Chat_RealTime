@@ -10,9 +10,15 @@ services:
     depends_on:
       - redis
       - mongodb
+      - minio
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-
+       ASPNETCORE_ENVIRONMENT: Development
+       MINIO_ENDPOINT: minio
+       MINIO_ACCESSKEY: admin
+       MINIO_SECRETKEY: 123456789
+       MINIO_USESSL: "false"
+    networks:
+      - chatnet
   redis:
     image: redis:latest
     container_name: redis
@@ -24,3 +30,24 @@ services:
     container_name: mongodb
     ports:
       - "27017:27017"
+  minio:
+    image: minio/minio
+    container_name: minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: 123456789
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Web UI
+    volumes:
+      - minio_data:/data
+    networks:
+      - chatnet
+
+networks:
+  chatnet:
+    driver: bridge
+
+volumes:
+  minio_data:

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import api from "../ApiConfig";
 
 // const API_URL = "https://localhost:7152/api";
@@ -26,18 +26,15 @@ export const createOrGetChat = createAsyncThunk(
     }
   }
 );
-// export const sendMessage = createAsyncThunk(
-//   "chat/sendMessage",
+// export const sendMessageImg = createAsyncThunk(
+//   "chat/sendMessageImg",
 //   async ({ currentUserId, chatId, targetUserId }, { rejectWithValue }) => {
 //     try {
 //       debugger;
-//       const response = await axios.post(
-//         `${API_URL}/chat/${chatId}/senMessage`,
-//         {
-//           currentUserId,
-//           targetUserId,
-//         }
-//       );
+//       const response = await api.post(`/chat/${chatId}/senMessage`, {
+//         currentUserId,
+//         targetUserId,
+//       });
 //       return response.data;
 //     } catch (error) {
 //       return rejectWithValue(error.message);
@@ -56,13 +53,23 @@ export const getMessage = createAsyncThunk(
   }
 );
 export const sendMessageImage = createAsyncThunk(
-  "chat/sendMessage",
-  async ({ chatId, imageFile, senderId }, { rejectWithValue }) => {
+  "chat/sendMessageImg",
+  async ({ chatId, file, senderId }, { rejectWithValue }) => {
     try {
-      const response = await api.post(`/chat/${chatId}/SendMessageImg`, {
-        imageFile,
-        senderId,
-      });
+      debugger;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("senderId", senderId);
+      const response = await api.post(
+        `/chat/${chatId}/getMessageImage`,
+        formData,
+        {
+          headers: {
+            // Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data", // Quan trọng!
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -107,35 +114,6 @@ export const createChatRoom = createAsyncThunk(
           },
         }
       );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const joinChatRedis = createAsyncThunk(
-  "chatredis/joinChatRedis",
-  async ({ chatId, userId }, { rejectWithValue }) => {
-    try {
-      
-      const response = await api.post(`/ChatRedis/join/${chatId}`, { userId });
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const SendMessageChatRedis = createAsyncThunk(
-  "chatredis/SendMessageChatRedis",
-  async ({ chatId, content, senderId }, { rejectWithValue }) => {
-    try {
-      const response = await api.post(`chatRedis/sendMessageRedis`, {
-        chatId,
-        content,
-        senderId,
-      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

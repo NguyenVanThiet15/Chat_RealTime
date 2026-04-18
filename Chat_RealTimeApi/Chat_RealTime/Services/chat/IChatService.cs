@@ -9,6 +9,8 @@ namespace Chat_RealTime.Services.chat
         public Task<List<Chat>> GetUserChatsAsync(string userId);
         public Task<Chat> CreateOrGetChat(CreateOrGetChatInput input);
         //public Task<Message> SendMessage(SendMessageInput input);
-        public Task<List<Message>> GetMessage(string ChatId);
+        public Task<List<Message>> GetMessage(string ChatId, int skip);
+        public Task<string> UploadFIleAsync(IFormFile file);
+        public Task InsertdataMessage(InsertMessageInput input);
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj": {}
+    "E:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj": {}
   },
   "projects": {
-    "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj": {
+    "E:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj",
+        "projectUniqueName": "E:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj",
         "projectName": "Chat_RealTime",
-        "projectPath": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj",
+        "projectPath": "E:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\Chat_RealTime.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\obj\\",
+        "outputPath": "E:\\ChatRealtime\\Chat_RealTimeApi\\Chat_RealTime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -70,9 +70,17 @@
               "target": "Package",
               "version": "[9.0.5, )"
             },
+            "Minio": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[3.4.0, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.11, )"
             },
             "StackExchange.Redis": {
               "target": "Package",

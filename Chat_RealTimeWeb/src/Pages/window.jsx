@@ -1,9 +1,19 @@
-import { Button, Card, Input, List, Space, Spin, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Input,
+  List,
+  Space,
+  Spin,
+  Typography,
+  Upload,
+} from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createOrGetChat,
   getMessage,
+  sendMessageImage,
   // getMessage,
   // joinChatRedis,
   // SendMessageChatRedis,
@@ -24,16 +34,15 @@ const ChatWindow = ({
   onClose,
   nhomChatRoom,
   chatType,
-  typingUsers,
 }) => {
-  const { currentChat, messages, loading, connection } = useSelector(
-    (state) => state.chat
-  );
+  const { currentChat, messages, loading, connection, typingUsers } =
+    useSelector((state) => state.chat);
   const isOpenModal = useSelector((state) => state.chat.isOpenModal);
   const dispatch = useDispatch();
   const [messageText, setMessageText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const typingTimeoutRef = useRef(null);
   const { Text } = Typography;
 
@@ -99,21 +108,14 @@ const ChatWindow = ({
         return;
       }
       const newConnection = new signalR.HubConnectionBuilder()
-        .withUrl("http://192.168.1.8:5231/chathub", {
+        .withUrl("http://localhost:5231/chathub", {
           accessTokenFactory: () => token,
         })
         .withAutomaticReconnect([0, 2000, 10000, 30000])
         .configureLogging(signalR.LogLevel.Information)
         .build();
-      // newConnection.serverTimeoutInMilliseconds = 120000;
-      // newConnection.keepAliveIntervalInMilliseconds = 30000;
+
       try {
-        // newConnection.onclose((error) => {
-        //   console.log("Signlar đã đóng ", error);
-        // });
-        // newConnection.onreconnecting((error) => {
-        //   console.log("đang thử kết nối lại ", error);
-        // });
         newConnection.onreconnected((connectionId) => {
           console.log("Đã kết nối thành công", connectionId);
           // Rejoin chat room sau khi reconnect
@@ -131,12 +133,6 @@ const ChatWindow = ({
         newConnection.on("Usertyping", (userId, isTyping) => {
           dispatch(setUserTyping({ userId, isTyping }));
         });
-        // newConnection.on("UserJoined", (userId, userName) => {
-        //   console.log(`${userName} đã tham gia nhóm chat `);
-        // });
-        // newConnection.on("UserLeft", (userId, userName) => {
-        //   console.log(`${userName} đã rời nhóm chat `);
-        // });
       } catch (error) {
         console.error("SignalR connection failed:", error);
       }
@@ -157,8 +153,30 @@ const ChatWindow = ({
     if (connection) {
       connection.invoke("SendMessage", currentChat.id, nguoiGuiID, messageText);
     }
-
     setMessageText("");
+  };
+
+  const handleSendMessageImg = async (file) => {
+    if (!connection || !currentChat) return false;
+
+    try {
+      // Dispatch Redux Thunk
+      dispatch(
+        sendMessageImage({
+          chatId: currentChat.id,
+          file: file, // File object từ Upload component
+          senderId: nguoiGuiID,
+        })
+      ).unwrap(); // unwrap() để bắt lỗi
+
+      // antMessage.success("Gửi ảnh thành công");
+    } catch (error) {
+      console.error("Lỗi gửi ảnh:", error);
+      // antMessage.error(error || "Không thể gửi ảnh");
+    } finally {
+    }
+
+    return false;
   };
 
   const formatTime = (dateString) => {
@@ -197,8 +215,8 @@ const ChatWindow = ({
 
   useEffect(() => {
     if (currentChat && connection) {
-      connection.invoke("JoinChat", currentChat.id, nguoiGuiID);
-      dispatch(getMessage({ chatId: currentChat.id }));
+      connection.invoke("JoinChat", currentChat.id, nguoiGuiID, 0);
+      dispatch(getMessage({ chatId: currentChat.id, skip: 0 }));
     }
   }, [currentChat, connection, nguoiGuiID]);
 
@@ -222,9 +240,9 @@ const ChatWindow = ({
               )}
 
               <br />
-              <Text type="secondary" style={{ fontSize: 12 }}>
-                {/* {typingUsers.includes(targetUser.userId) ? 'Đang gõ...' : 'Trực tuyến'} */}
-              </Text>
+              {/* <Text type="secondary" style={{ fontSize: 12 }}>
+                {typingUsers.includes(nguoiGuiID) ? "Đang gõ..." : "Trực tuyến"}
+              </Text> */}
             </div>
           </Space>
         }
@@ -238,11 +256,12 @@ const ChatWindow = ({
         }
       >
         <div
+          ref={messagesContainerRef}
           style={{
-            flex: 1,
-            overflow: "auto",
-            padding: "16px",
-            maxHeight: "calc(100% - 120px)",
+            height: "500px", // Chiều cao cố định
+            overflowY: "auto", // Cho phép cuộn
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           {loading.messages && (
@@ -251,6 +270,7 @@ const ChatWindow = ({
             </div>
           )}
         </div>
+        <div ref={messagesEndRef} />
         <List
           dataSource={messages}
           renderItem={(message) => (
@@ -283,7 +303,20 @@ const ChatWindow = ({
                     lineHeight: "1.8",
                   }}
                 >
-                  {message.content}
+                  {" "}
+                  {message.type === 1 ? (
+                    <img
+                      src={message.content}
+                      alt="img"
+                      style={{
+                        width: "100px",
+                        borderRadius: "10px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    <span>{message.content}</span>
+                  )}
                 </div>
               </div>
 
@@ -306,18 +339,22 @@ const ChatWindow = ({
           )}
         ></List>
         {renderTypingIndicator()}
-        <div ref={messagesEndRef} />
+
         <div style={{ borderTop: "1px solid #f0f0f0" }}>
-          {/* <Space.Compact style={{ width: "100%" }}>
-            <Upload
-              accept="image/*"
-              showUploadList={false}
-              beforeUpload={() => false}
-              onChange={handleSendMessageImg}
-            >
-              <Button icon={<UploadOutlined />}>Gửi ảnh</Button>
-            </Upload>
-          </Space.Compact> */}
+          <div>
+            {" "}
+            <Space.Compact style={{ width: "100%" }}>
+              <Upload
+                accept="image/*"
+                showUploadList={false}
+                beforeUpload={handleSendMessageImg}
+                // onChange={handleSendMessageImg}
+              >
+                <Button>Gửi ảnh</Button>
+              </Upload>
+            </Space.Compact>
+          </div>
+
           <Space.Compact style={{ width: "100%" }}>
             <Input.TextArea
               value={messageText}
